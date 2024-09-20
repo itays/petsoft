@@ -1,20 +1,23 @@
 import Image from "next/image";
+import { Pet } from "../types";
 
-export default function PetList() {
+export default function PetList({ pets }: { pets: Pet[] }) {
   return (
     <ul className="bg-white border-b border-black/10">
-      <li>
-        <button className="flex items-center h-20 w-full cursor-pointer px-5 text-base gap-3 hover:bg-gray-100 focus:bg-gray-100 transition">
-          <Image
-            src="/images/pet_placeholder.png"
-            alt="Pet image"
-            width={45}
-            height={45}
-            className="rounded-full object-cover"
-          />
-          <p className="font-semibold">Max</p>
-        </button>
-      </li>
+      {pets.map((pet) => (
+        <li key={pet.id}>
+          <button className="flex items-center h-20 w-full cursor-pointer px-5 text-base gap-3 hover:bg-gray-100 focus:bg-gray-100 transition">
+            <Image
+              src={pet.imageUrl}
+              alt="Pet image"
+              width={44}
+              height={44}
+              className="rounded-full object-cover w-11 h-11"
+            />
+            <p className="font-semibold">{pet.name}</p>
+          </button>
+        </li>
+      ))}
     </ul>
   );
 }
