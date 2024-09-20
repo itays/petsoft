@@ -1,7 +1,11 @@
 import Image from "next/image";
-import { Pet } from "../types";
+import { Pet } from "@/lib/types";
 
-export default function PetList({ pets }: { pets: Pet[] }) {
+type PetListProps = {
+  pets: Pet[];
+};
+
+export default function PetList({ pets }: PetListProps) {
   return (
     <ul className="bg-white border-b border-black/10">
       {pets.map((pet) => (

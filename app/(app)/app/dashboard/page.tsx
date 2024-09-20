@@ -4,7 +4,7 @@ import PetDetails from "@/app/components/PetDetails";
 import PetList from "@/app/components/PetList";
 import SearchForm from "@/app/components/SearchForm";
 import Stats from "@/app/components/Stats";
-import { Pet } from "@/app/types";
+import { Pet } from "@/lib/types";
 
 const mockPets: Pet[] = [
   {
