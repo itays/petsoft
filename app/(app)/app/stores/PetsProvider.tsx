@@ -1,33 +1,40 @@
 "use client";
 
-import { PropsWithChildren, useRef, useContext } from "react";
-import {
-  createStore,
-  StateProps,
-  Store,
-  State,
-  StoreContext,
-} from "./petStore";
 import { useStore } from "zustand";
+import { createPetStore, type PetStore } from "./petStore";
+import { createContext, PropsWithChildren, useContext, useRef } from "react";
+import { Pet } from "@/lib/types";
 
-type StoreProviderProps = PropsWithChildren<StateProps>;
-// 7 provider component gets the props that sets the initial state and passes it to the store
-export function StoreProvider({ children, ...props }: StoreProviderProps) {
-  const storeRef = useRef<Store>();
+export type PetStoreApi = ReturnType<typeof createPetStore>;
+
+export const PetStoreContext = createContext<PetStoreApi | null>(null);
+
+export function PetsProvider({
+  children,
+  pets,
+}: PropsWithChildren<{ pets: Pet[] }>) {
+  const storeRef = useRef<PetStoreApi>();
   if (!storeRef.current) {
-    storeRef.current = createStore(props);
+    storeRef.current = createPetStore({ pets, selectedPet: null });
   }
   return (
-    <StoreContext.Provider value={storeRef.current}>
+    <PetStoreContext.Provider value={storeRef.current}>
       {children}
-    </StoreContext.Provider>
+    </PetStoreContext.Provider>
   );
 }
 
-export function useStoreContext<T>(selector: (state: State) => T): T {
-  const store = useContext(StoreContext);
-  if (!store) {
-    throw new Error("Missing StoreContext.Provider in the tree");
+export const usePetStore = <T,>(selector: (store: PetStore) => T): T => {
+  const petStoreContext = useContext(PetStoreContext);
+  if (!petStoreContext) {
+    throw new Error("usePetStore must be used within a PetStoreProvider");
   }
-  return useStore(store, selector);
-}
+  return useStore(petStoreContext, selector);
+};
+
+// Selectors
+export const usePetsSelector = () => usePetStore((state) => state.pets);
+export const useSelectedPetSelector = () =>
+  usePetStore((state) => state.selectedPet);
+export const useSetSelectedPetSelector = () =>
+  usePetStore((state) => state.setSelectedPet);
