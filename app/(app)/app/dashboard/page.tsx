@@ -12,7 +12,7 @@ export default async function Dashboard() {
         <Branding />
         <Stats />
       </div>
-      <div className="grid md:grid-cols-3 md:grid-rows-[45px_1fr] grid-rows-[45px_300px_500px] gap-4 md:h-96">
+      <div className="grid md:grid-cols-3 md:grid-rows-[45px_1fr] grid-rows-[45px_300px_500px] gap-4 md:h-[600px]">
         <div className="md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-1">
           <SearchForm />
         </div>

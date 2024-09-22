@@ -3,11 +3,14 @@
 import Image from "next/image";
 import {
   usePetsSelector,
+  useSelectedPetSelector,
   useSetSelectedPetSelector,
 } from "../(app)/app/stores/PetsProvider";
+import { cn } from "@/lib/utils";
 
 export default function PetList() {
   const pets = usePetsSelector();
+  const selectedPet = useSelectedPetSelector();
   const setSelectedPet = useSetSelectedPetSelector();
 
   return (
@@ -15,7 +18,12 @@ export default function PetList() {
       {pets.map((pet) => (
         <li key={pet.id}>
           <button
-            className="flex items-center h-20 w-full cursor-pointer px-5 text-base gap-3 hover:bg-gray-100 focus:bg-gray-100 transition"
+            className={cn(
+              "flex items-center h-20 w-full cursor-pointer px-5 text-base gap-3 hover:bg-gray-100 focus:bg-gray-100 transition",
+              {
+                "bg-gray-100": pet.id === selectedPet?.id,
+              }
+            )}
             onClick={() => {
               setSelectedPet(pet);
             }}
