@@ -7,15 +7,21 @@ import {
   useSetSelectedPetSelector,
 } from "../(app)/app/stores/PetsProvider";
 import { cn } from "@/lib/utils";
+import { useSearchSelector } from "../(app)/app/stores/SearchProvider";
 
 export default function PetList() {
   const pets = usePetsSelector();
   const selectedPet = useSelectedPetSelector();
   const setSelectedPet = useSetSelectedPetSelector();
+  const search = useSearchSelector();
+
+  const filteredPets = pets.filter((pet) =>
+    pet.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <ul className="bg-white border-b border-black/10">
-      {pets.map((pet) => (
+      {filteredPets.map((pet) => (
         <li key={pet.id}>
           <button
             className={cn(

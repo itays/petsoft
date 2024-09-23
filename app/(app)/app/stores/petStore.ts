@@ -24,8 +24,9 @@ export const createPetStore = (initState: PetState = defaultPetState) => {
     devtools(
       (set) => ({
         ...initState,
-        setPets: (pets: Pet[]) => set({ pets }),
-        setSelectedPet: (pet: Pet) => set({ selectedPet: pet }),
+        setPets: (pets: Pet[]) => set({ pets }, false, "setPets"),
+        setSelectedPet: (pet: Pet) =>
+          set({ selectedPet: pet }, false, "setSelectedPet"),
       }),
       { name: "petStore" }
     )
