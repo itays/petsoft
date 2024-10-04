@@ -4,7 +4,8 @@ import PetDetails from "@/app/components/PetDetails";
 import PetList from "@/app/components/PetList";
 import SearchForm from "@/app/components/SearchForm";
 import Stats from "@/app/components/Stats";
-
+import { Button } from "@/components/ui/button";
+import { PlusIcon } from "lucide-react";
 export default async function Dashboard() {
   return (
     <main>
@@ -16,9 +17,14 @@ export default async function Dashboard() {
         <div className="md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-1">
           <SearchForm />
         </div>
-        <div className="md:row-start-2 md:row-span-full md:col-span-1 md:col-start-1">
+        <div className="relative md:row-start-2 md:row-span-full md:col-span-1 md:col-start-1">
           <ContentBlock>
             <PetList />
+            <span className="absolute bottom-4 right-4">
+              <Button size="icon" className="rounded-full">
+                <PlusIcon />
+              </Button>
+            </span>
           </ContentBlock>
         </div>
         <div className="md:row-start-1 md:row-span-full md:col-span-full md:col-start-2">

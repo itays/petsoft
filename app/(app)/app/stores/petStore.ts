@@ -10,6 +10,7 @@ export type PetState = {
 export type PetActions = {
   setPets: (pets: Pet[]) => void;
   setSelectedPet: (pet: Pet) => void;
+  handleCheckout: (id: string) => void;
 };
 
 export type PetStore = PetState & PetActions;
@@ -27,6 +28,17 @@ export const createPetStore = (initState: PetState = defaultPetState) => {
         setPets: (pets: Pet[]) => set({ pets }, false, "setPets"),
         setSelectedPet: (pet: Pet) =>
           set({ selectedPet: pet }, false, "setSelectedPet"),
+        handleCheckout(id) {
+          set(
+            (state) => ({
+              ...state,
+              pets: state.pets.filter((pet) => pet.id !== id),
+              selectedPet: null,
+            }),
+            false,
+            "handleCheckout"
+          );
+        },
       }),
       { name: "petStore" }
     )

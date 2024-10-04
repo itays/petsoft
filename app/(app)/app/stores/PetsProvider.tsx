@@ -38,3 +38,5 @@ export const useSelectedPetSelector = () =>
   usePetStore((state) => state.selectedPet);
 export const useSetSelectedPetSelector = () =>
   usePetStore((state) => state.setSelectedPet);
+export const useHandleCheckoutSelector = () =>
+  usePetStore((state) => state.handleCheckout);

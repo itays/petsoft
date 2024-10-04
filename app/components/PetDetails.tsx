@@ -1,8 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useSelectedPetSelector } from "../(app)/app/stores/PetsProvider";
+import {
+  useHandleCheckoutSelector,
+  useSelectedPetSelector,
+} from "../(app)/app/stores/PetsProvider";
 import { Pet } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 
 export default function PetDetails() {
   const selectedPet = useSelectedPetSelector();
@@ -26,6 +30,7 @@ export default function PetDetails() {
 }
 
 function TopBar({ pet }: { pet: Pet }) {
+  const handleCheckout = useHandleCheckoutSelector();
   return (
     <div className="flex items-center bg-white px-8 py-5 border-b border-black/10">
       <Image
@@ -38,6 +43,13 @@ function TopBar({ pet }: { pet: Pet }) {
       <h2 className="text-3xl font-semibold leading-7 ml-5 text-black">
         {pet.name}
       </h2>
+
+      <div className="ml-auto flex gap-2">
+        <Button variant={"secondary"}>Edit</Button>
+        <Button variant={"secondary"} onClick={() => handleCheckout(pet.id)}>
+          Checkout
+        </Button>
+      </div>
     </div>
   );
 }
